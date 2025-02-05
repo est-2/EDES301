@@ -1,1 +1,2 @@
-# EDES301
+# H1 EDES301
+# Repository for EDES301 course work
