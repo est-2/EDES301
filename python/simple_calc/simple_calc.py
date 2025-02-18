@@ -97,6 +97,15 @@ def get_user_input():
                         (None, None, None) if inputs invalid
     """
     # NOTE - Use "try"/"except" statements to allow code to handle errors gracefully.      
+    
+    # Make compatible with Python 2 using raw_input function
+    try:
+        input1 = raw_input
+        input2 = raw_input
+        op = raw_input
+    except NameError:
+        pass
+    
     try:
         # NOTE - Use "pass" statements to allow code to be run without having to 
         # NOTE - fill out the contents.  This pass statement should be removed    
@@ -111,6 +120,7 @@ def get_user_input():
     except:
         print("Invalid Input")
         return (None, None, None)
+        
 
 # End def
 
