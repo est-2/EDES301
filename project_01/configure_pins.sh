@@ -35,7 +35,7 @@
 #   - LCD
 #   - Buttons (3)
 #   - Servo
-#   - LED matrix
+#   - LED matrix (SPI)
 # 
 # --------------------------------------------------------------------------
 
@@ -45,6 +45,7 @@ config-pin P2_27 gpio
 config-pin P2_29 gpio
 config-pin P2_31 gpio
 config-pin P2_33 gpio
+config-pin P2_35 gpio
 
 # Buttons
 config-pin P2_02 gpio
@@ -55,4 +56,7 @@ config-pin P2_06 gpio
 config-pin P1_36 pwm
 
 # LED matrix
-
+config-pin P1_06 spi
+config-pin P1_08 spi
+config-pin P1_10 spi
+config-pin P1_12 spi
