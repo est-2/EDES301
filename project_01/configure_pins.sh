@@ -32,9 +32,9 @@
 # --------------------------------------------------------------------------
 # 
 # Configure pins for Pomodoro Prism:
-#   - LCD
-#   - Buttons (3)
-#   - Servo
+#   - LCD (GPIO)
+#   - Buttons (GPIO)
+#   - Servo (PWM)
 #   - LED matrix (SPI)
 # 
 # --------------------------------------------------------------------------
@@ -56,7 +56,7 @@ config-pin P2_06 gpio
 config-pin P1_36 pwm
 
 # LED matrix
-config-pin P1_06 spi
-config-pin P1_08 spi
+config-pin P1_06 spi_cs
+config-pin P1_08 spi_sclk
 config-pin P1_10 spi
 config-pin P1_12 spi
