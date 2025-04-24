@@ -57,6 +57,6 @@ config-pin P1_36 pwm
 
 # LED matrix
 config-pin P1_06 gpio
-config-pin P1_08 gpio
-config-pin P1_10 gpio
-config-pin P1_12 gpio
+config-pin P1_08 spi
+config-pin P1_10 spi
+config-pin P1_12 spi
