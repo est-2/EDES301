@@ -75,8 +75,8 @@ Software API:
 """
 import time
 import board
-import digitalio
 import adafruit_character_lcd.character_lcd as characterlcd
+import digitalio
 
 # ------------------------------------------------------------------------
 # Constants
@@ -103,7 +103,7 @@ class LCD():
     lcd_d4 = None
     
     
-    def __init__(self, lcd_rs=digitalio.DigitalInOut(board.P2_33), lcd_en=digitalio.DigitalInOut(board.P2_35), lcd_d7=digitalio.DigitalInOut(board.P2_31), lcd_d6=digitalio.DigitalInOut(board.P2_29), lcd_d5=digitalio.DigitalInOut(board.P2_27), lcd_d4=digitalio.DigitalInOut(board.P2_25)):
+    def __init__(self, lcd_rs=board.P2_33, lcd_en=board.P2_35, lcd_d7=board.P2_31, lcd_d6=board.P2_29, lcd_d5=board.P2_27, lcd_d4=board.P2_25):
         """ Initialize variables and set up the button """
         if (lcd_rs == None or lcd_en == None or lcd_d7 == None or lcd_d6 == None or lcd_d5 == None or lcd_d4 == None):
             raise ValueError("Pins not provided for LCD")
@@ -115,7 +115,7 @@ class LCD():
             self.lcd_d5 = lcd_d5
             self.lcd_d4 = lcd_d4
               
-        lcd = characterlcd.Character_LCD_Mono(lcd_rs, lcd_en, lcd_d4, lcd_d5, lcd_d6, lcd_d7, 16, 2)
+        self.lcd = characterlcd.Character_LCD_Mono(digitalio.DigitalInOut(lcd_rs), digitalio.DigitalInOut(lcd_en), digitalio.DigitalInOut(lcd_d4), digitalio.DigitalInOut(lcd_d5), digitalio.DigitalInOut(lcd_d6), digitalio.DigitalInOut(lcd_d7), 16, 2)
 
         # Initialize the hardware components        
         self._setup()
@@ -125,29 +125,40 @@ class LCD():
     
     def _setup(self):
         """ Setup the hardware components. """
-        lcd = characterlcd.Character_LCD_Mono(digitalio.DigitalInOut(board.P2_33), digitalio.DigitalInOut(board.P2_35), digitalio.DigitalInOut(board.P2_31), digitalio.DigitalInOut(board.P2_29), digitalio.DigitalInOut(board.P2_27), digitalio.DigitalInOut(board.P2_25), 16, 2)
-
+        self.lcd.clear()
     # End def
-
 
     
     def cleanup(self):
         """ Clean up the hardware. """
-        lcd = characterlcd.Character_LCD_Mono(digitalio.DigitalInOut(board.P2_33), digitalio.DigitalInOut(board.P2_35), digitalio.DigitalInOut(board.P2_31), digitalio.DigitalInOut(board.P2_29), digitalio.DigitalInOut(board.P2_27), digitalio.DigitalInOut(board.P2_25), 16, 2)
-        lcd.clear()
+        self.lcd.clear()
     
     # End def
     
     
     def clear_screen(self):
         """ Clear the screen """
-        lcd = characterlcd.Character_LCD_Mono(digitalio.DigitalInOut(board.P2_33), digitalio.DigitalInOut(board.P2_35), digitalio.DigitalInOut(board.P2_31), digitalio.DigitalInOut(board.P2_29), digitalio.DigitalInOut(board.P2_27), digitalio.DigitalInOut(board.P2_25), 16, 2)
-        lcd.clear()
+        self.lcd.clear()
+        
+    # End def
     
-    def write(self, string):
+    def write(self, first_line):
         """ write a message on the LCD """
-        lcd = characterlcd.Character_LCD_Mono(digitalio.DigitalInOut(board.P2_33), digitalio.DigitalInOut(board.P2_35), digitalio.DigitalInOut(board.P2_31), digitalio.DigitalInOut(board.P2_29), digitalio.DigitalInOut(board.P2_27), digitalio.DigitalInOut(board.P2_25), 16, 2)
-        lcd.message = string
+        self.lcd.message = first_line
+        
+    # End def
+
+        
+    def write_in_position(self, row, col, string):
+        """ write a message in a specific place on the LCD """
+        # The LCD has 2 rows, and 16 columns, so the row should be 0 or 1 and col should be 0-15
+        # Create the message string with an appropriate number of newlines to position the cursor.
+        if row == 0:
+            # Top row
+            self.lcd.message = " " * col + string
+        elif row == 1:
+            # Bottom row
+            self.lcd.message = "\n" + " " * col + string
         
     # End def
         
@@ -166,15 +177,18 @@ if __name__ == '__main__':
     print("LCD Test")
 
     # Create instantiation of the LCD screen
-    lcd = LCD(digitalio.DigitalInOut(board.P2_33), digitalio.DigitalInOut(board.P2_35), digitalio.DigitalInOut(board.P2_31), digitalio.DigitalInOut(board.P2_29), digitalio.DigitalInOut(board.P2_27), digitalio.DigitalInOut(board.P2_25))
+    lcd = LCD(board.P2_33, board.P2_35, board.P2_31, board.P2_29, board.P2_27, board.P2_25)
+  #  print("hi {0}".format(dir(board)))
     
+    lcd.clear_screen()
     lcd.write("test")
     time.sleep(3)
-    lcd.clear_screen
+    lcd.clear_screen()
     time.sleep(3)
-    lcd.write("test/n2nd line")
+    lcd.write_in_position(0,0,"testing")
+    lcd.write_in_position(1,4,"position")
     time.sleep(3)
-    lcd.cleanup
+    lcd.cleanup()
     
     # Use a Keyboard Interrupt (i.e. "Ctrl-C") to exit the test
     try:
