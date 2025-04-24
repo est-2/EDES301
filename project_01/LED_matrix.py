@@ -110,7 +110,7 @@ class LEDMatrix():
             self.cs     = cs
             self.spi    = spi
 
-        matrix = matrices.Matrix8x8(self.spi, self.cs)
+        self.matrix = matrices.Matrix8x8(self.spi, self.cs)
 
         # Initialize the hardware components        
         self._setup()
@@ -121,9 +121,8 @@ class LEDMatrix():
     def _setup(self):
         """ Setup the hardware components. """
         # Initialize LED matrix, clear the display
-        matrix = matrices.Matrix8x8(self.spi, self.cs)
-        matrix.fill(False)
-        matrix.show()
+        self.matrix.fill(False)
+        self.matrix.show()
     # End def
 
 
@@ -131,32 +130,28 @@ class LEDMatrix():
     def cleanup(self):
         """ Clean up the hardware. """
         # Clear the display
-        matrix = matrices.Matrix8x8(self.spi, self.cs)
-        matrix.fill(False)
-        matrix.show()
+        self.matrix.fill(False)
+        self.matrix.show()
     
     # End def
     
     def set_brightness(self, value):
         """ Change brightness of LED Matrix """
-        matrix = matrices.Matrix8x8(self.spi, self.cs)
-        matrix.brightness(value)
+        self.matrix.brightness(value)
         
     # End def
     
     def light_up(self):
         """ Light up LED matrix completely """
-        matrix = matrices.Matrix8x8(self.spi, self.cs)
-        matrix.fill(True)
-        matrix.show()
+        self.matrix.fill(True)
+        self.matrix.show()
         
     # End def
     
     def go_dark(self):
         """ Clear/turn off the matrix display """
-        matrix = matrices.Matrix8x8(self.spi, self.cs)
-        matrix.fill(False)
-        matrix.show()
+        self.matrix.fill(False)
+        self.matrix.show()
         
     # End def
     

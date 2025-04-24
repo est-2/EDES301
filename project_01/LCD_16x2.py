@@ -125,7 +125,7 @@ class LCD():
     
     def _setup(self):
         """ Setup the hardware components. """
-        lcd = characterlcd.Character_LCD_Mono(lcd_rs, lcd_en, lcd_d4, lcd_d5, lcd_d6, lcd_d7, 16, 2)
+        lcd = characterlcd.Character_LCD_Mono(digitalio.DigitalInOut(board.P2_33), digitalio.DigitalInOut(board.P2_35), digitalio.DigitalInOut(board.P2_31), digitalio.DigitalInOut(board.P2_29), digitalio.DigitalInOut(board.P2_27), digitalio.DigitalInOut(board.P2_25), 16, 2)
 
     # End def
 
@@ -133,7 +133,7 @@ class LCD():
     
     def cleanup(self):
         """ Clean up the hardware. """
-        lcd = characterlcd.Character_LCD_Mono(lcd_rs, lcd_en, lcd_d4, lcd_d5, lcd_d6, lcd_d7, 16, 2)
+        lcd = characterlcd.Character_LCD_Mono(digitalio.DigitalInOut(board.P2_33), digitalio.DigitalInOut(board.P2_35), digitalio.DigitalInOut(board.P2_31), digitalio.DigitalInOut(board.P2_29), digitalio.DigitalInOut(board.P2_27), digitalio.DigitalInOut(board.P2_25), 16, 2)
         lcd.clear()
     
     # End def
@@ -141,12 +141,12 @@ class LCD():
     
     def clear_screen(self):
         """ Clear the screen """
-        lcd = characterlcd.Character_LCD_Mono(lcd_rs, lcd_en, lcd_d4, lcd_d5, lcd_d6, lcd_d7, 16, 2)
+        lcd = characterlcd.Character_LCD_Mono(digitalio.DigitalInOut(board.P2_33), digitalio.DigitalInOut(board.P2_35), digitalio.DigitalInOut(board.P2_31), digitalio.DigitalInOut(board.P2_29), digitalio.DigitalInOut(board.P2_27), digitalio.DigitalInOut(board.P2_25), 16, 2)
         lcd.clear()
     
     def write(self, string):
         """ write a message on the LCD """
-        lcd = characterlcd.Character_LCD_Mono(lcd_rs, lcd_en, lcd_d4, lcd_d5, lcd_d6, lcd_d7, 16, 2)
+        lcd = characterlcd.Character_LCD_Mono(digitalio.DigitalInOut(board.P2_33), digitalio.DigitalInOut(board.P2_35), digitalio.DigitalInOut(board.P2_31), digitalio.DigitalInOut(board.P2_29), digitalio.DigitalInOut(board.P2_27), digitalio.DigitalInOut(board.P2_25), 16, 2)
         lcd.message = string
         
     # End def
