@@ -110,6 +110,8 @@ class LEDMatrix():
             self.cs     = cs
             self.spi    = spi
 
+        matrix = matrices.Matrix8x8(self.spi, self.cs)
+
         # Initialize the hardware components        
         self._setup()
     
@@ -129,6 +131,7 @@ class LEDMatrix():
     def cleanup(self):
         """ Clean up the hardware. """
         # Clear the display
+        matrix = matrices.Matrix8x8(self.spi, self.cs)
         matrix.fill(False)
         matrix.show()
     
@@ -136,12 +139,14 @@ class LEDMatrix():
     
     def set_brightness(self, value):
         """ Change brightness of LED Matrix """
+        matrix = matrices.Matrix8x8(self.spi, self.cs)
         matrix.brightness(value)
         
     # End def
     
     def light_up(self):
         """ Light up LED matrix completely """
+        matrix = matrices.Matrix8x8(self.spi, self.cs)
         matrix.fill(True)
         matrix.show()
         
@@ -149,6 +154,7 @@ class LEDMatrix():
     
     def go_dark(self):
         """ Clear/turn off the matrix display """
+        matrix = matrices.Matrix8x8(self.spi, self.cs)
         matrix.fill(False)
         matrix.show()
         
@@ -167,7 +173,12 @@ if __name__ == '__main__':
     print("Test")
 
     # Create instantiation of the LED matrix
-    matrix = LEDMatrix(digitalio.DigitalInOut(board.P1_6), board.SPI())
+    ledMatrix = LEDMatrix(digitalio.DigitalInOut(board.P1_6), board.SPI())
+    
+    print("light up now")
+    ledMatrix.light_up()
+    time.sleep(3)
+    ledMatrix.cleanup()
     
     try:
         pass
