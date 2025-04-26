@@ -114,23 +114,32 @@ class LCD():
             self.lcd_d6 = lcd_d6
             self.lcd_d5 = lcd_d5
             self.lcd_d4 = lcd_d4
+            
+        self.lcd = None
               
-        self.lcd = characterlcd.Character_LCD_Mono(digitalio.DigitalInOut(lcd_rs), digitalio.DigitalInOut(lcd_en), digitalio.DigitalInOut(lcd_d4), digitalio.DigitalInOut(lcd_d5), digitalio.DigitalInOut(lcd_d6), digitalio.DigitalInOut(lcd_d7), 16, 2)
-
-        # Initialize the hardware components        
-        self._setup()
     
     # End def
     
     
-    def _setup(self):
-        """ Setup the hardware components. """
-        self.lcd.clear()
+    def lazy_init(self):
+        """ Initialize the LCD only when needed. """
+        if not self.lcd:
+            self.lcd = characterlcd.Character_LCD_Mono(
+                digitalio.DigitalInOut(self.lcd_rs),
+                digitalio.DigitalInOut(self.lcd_en),
+                digitalio.DigitalInOut(self.lcd_d4),
+                digitalio.DigitalInOut(self.lcd_d5),
+                digitalio.DigitalInOut(self.lcd_d6),
+                digitalio.DigitalInOut(self.lcd_d7),
+                16, 2)
+            self.lcd.clear()
+            
     # End def
 
     
     def cleanup(self):
         """ Clean up the hardware. """
+        self.lazy_init()
         self.lcd.clear()
     
     # End def
@@ -138,12 +147,14 @@ class LCD():
     
     def clear_screen(self):
         """ Clear the screen """
+        self.lazy_init()
         self.lcd.clear()
         
     # End def
     
     def write(self, first_line):
         """ write a message on the LCD """
+        self.lazy_init()
         self.lcd.message = first_line
         
     # End def
@@ -153,6 +164,7 @@ class LCD():
         """ write a message in a specific place on the LCD """
         # The LCD has 2 rows, and 16 columns, so the row should be 0 or 1 and col should be 0-15
         # Create the message string with an appropriate number of newlines to position the cursor.
+        self.lazy_init()
         if row == 0:
             # Top row
             self.lcd.message = " " * col + string
@@ -161,7 +173,14 @@ class LCD():
             self.lcd.message = "\n" + " " * col + string
         
     # End def
+    
+    def write_two_lines(self, first_line, second_line):
+        """ write a message on 2 lines """
+        self.lazy_init()
+        self.write_in_position(0, 0, first_line)
+        self.write_in_position(1, 0, second_line)
         
+    # End def
    
     
 # End class
@@ -178,16 +197,17 @@ if __name__ == '__main__':
 
     # Create instantiation of the LCD screen
     lcd = LCD(board.P2_33, board.P2_35, board.P2_31, board.P2_29, board.P2_27, board.P2_25)
-  #  print("hi {0}".format(dir(board)))
     
     lcd.clear_screen()
     lcd.write("test")
-    time.sleep(3)
+    time.sleep(0.5)
     lcd.clear_screen()
-    time.sleep(3)
+    time.sleep(0.5)
     lcd.write_in_position(0,0,"testing")
     lcd.write_in_position(1,4,"position")
-    time.sleep(3)
+    time.sleep(0.5)
+    lcd.write_two_lines("first line", "second line")
+    time.sleep(0.5)
     lcd.cleanup()
 
     # Use a Keyboard Interrupt (i.e. "Ctrl-C") to exit the test
