@@ -145,22 +145,23 @@ class PrismPomodoro():
                 self.study_time = self.study_time + 5
                 time.sleep(0.5)
                 print(self.study_time)
-                self.LCD_screen.clear_screen()
-                self.LCD_screen.write_in_position(1, 0, "Set study time")
-                self.LCD_screen.write(format(self.study_time))
+                self.LCD_screen.write("{}  ".format(self.study_time))
             if self.blue_button.is_pressed():
                 self.study_time = self.study_time - 5
                 time.sleep(0.5)
                 print(self.study_time)
-                self.LCD_screen.clear_screen()
-                self.LCD_screen.write_in_position(1, 0, "Set study time")
-                self.LCD_screen.write(format(self.study_time))
+                self.LCD_screen.write("{}  ".format(self.study_time))
             if self.black_button.is_pressed():
-                self.study_time_set = True
+                if (self.study_time > 0):
+                    self.study_time_set = True
+                else:
+                    self.LCD_screen.write("INVALID TIME")
+                    time.sleep(1.5)
+                    self.LCD_screen.write("                ")
         self.LCD_screen.clear_screen()
-        self.LCD_screen.write("Study time:")
-        self.LCD_screen.write_in_position(1,0,"{} minutes".format(self.study_time))
+        self.LCD_screen.write_two_lines("Study time:","{} minutes".format(self.study_time))
         time.sleep(3)
+        
         
         
         # set break time
@@ -174,26 +175,26 @@ class PrismPomodoro():
                 self.break_time = self.break_time + 1
                 time.sleep(0.5)
                 print(self.break_time)
-                self.LCD_screen.clear_screen()
-                self.LCD_screen.write_in_position(1, 0, "Set break time")
-                self.LCD_screen.write(format(self.break_time))
+                self.LCD_screen.write("{}  ".format(self.break_time))
             if self.blue_button.is_pressed():
                 self.break_time = self.break_time - 1
                 time.sleep(0.5)
                 print(self.break_time)
-                self.LCD_screen.clear_screen()
-                self.LCD_screen.write_in_position(1, 0, "Set break time")
-                self.LCD_screen.write(format(self.break_time))
+                self.LCD_screen.write("{}  ".format(self.break_time))
             if self.black_button.is_pressed():
-                self.break_time_set = True
+                if (self.break_time > 0):
+                    self.break_time_set = True
+                else:
+                    self.LCD_screen.write("INVALID TIME")
+                    time.sleep(1.5)
+                    self.LCD_screen.write("                ")
         self.LCD_screen.clear_screen()
-        self.LCD_screen.write("Break time:")
-        self.LCD_screen.write_in_position(1,0,"{} minutes".format(self.break_time))
+        self.LCD_screen.write_two_lines("Break time:","{} minutes".format(self.break_time))
     
     # End def
         
     def cleanup(self):
-        self.lcd_screen.cleanup()
+        self.LCD_screen.cleanup()
         self.LED_matrix.cleanup()
         
     
