@@ -1,6 +1,6 @@
 #!/bin/bash
 # --------------------------------------------------------------------------
-# Pomodoro Prism - Configure Pins
+# Prism Pomodoro - Configure Pins
 # --------------------------------------------------------------------------
 # License:   
 # Copyright 2025 Eleanor Tucker
@@ -57,6 +57,6 @@ config-pin P1_36 pwm
 
 # LED matrix
 config-pin P1_06 gpio
-config-pin P1_08 spi
+# config-pin P1_08 spi gives error
 config-pin P1_10 spi
 config-pin P1_12 spi

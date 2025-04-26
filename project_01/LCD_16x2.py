@@ -189,7 +189,7 @@ if __name__ == '__main__':
     lcd.write_in_position(1,4,"position")
     time.sleep(3)
     lcd.cleanup()
-    
+
     # Use a Keyboard Interrupt (i.e. "Ctrl-C") to exit the test
     try:
         pass
