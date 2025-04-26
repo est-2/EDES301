@@ -120,9 +120,10 @@ class LEDMatrix():
     
     def _setup(self):
         """ Setup the hardware components. """
-        # Initialize LED matrix, clear the display
+        # Initialize LED matrix, clear the display, set brightness to 5
         self.matrix.fill(False)
         self.matrix.show()
+        self.set_brightness(5);
     # End def
 
 
@@ -137,6 +138,7 @@ class LEDMatrix():
     
     def set_brightness(self, value):
         """ Change brightness of LED Matrix """
+        # values range from 1 to 15
         self.matrix.brightness(value)
         
     # End def

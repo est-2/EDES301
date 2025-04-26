@@ -139,8 +139,6 @@ class PrismPomodoro():
         self.LCD_screen.write_in_position(1, 0, "Set study time")
         print("press buttons")
         while (self.study_time_set == False):
-    #        self.yellow_button.set_on_press_callback(lambda: self.increment_up(study_time))
-    #        self.blue_button.set_on_press_callback(lambda: self.increment_down(study_time))
             if self.yellow_button.is_pressed():
                 self.study_time = self.study_time + 5
                 time.sleep(0.5)
@@ -163,14 +161,11 @@ class PrismPomodoro():
         time.sleep(3)
         
         
-        
         # set break time
         self.LCD_screen.clear_screen()
         self.LCD_screen.write_in_position(1, 0, "Set break time")
         print("press buttons")
         while (self.break_time_set == False):
-    #        self.yellow_button.set_on_press_callback(lambda: self.increment_up(study_time))
-    #        self.blue_button.set_on_press_callback(lambda: self.increment_down(study_time))
             if self.yellow_button.is_pressed():
                 self.break_time = self.break_time + 1
                 time.sleep(0.5)
@@ -192,6 +187,45 @@ class PrismPomodoro():
         self.LCD_screen.write_two_lines("Break time:","{} minutes".format(self.break_time))
     
     # End def
+    
+    
+    def study_mode(self):
+        """ display study message on LCD screen, pulse LED matrix, spin Servo """
+        # write message
+        self.LCD_screen.clear_screen()
+        self.LCD_screen.write_two_lines("study hard!", "You got this!")
+        
+         # pulse the screen brightness
+        self.LED_matrix.set_brightness(1)
+        self.LED_matrix.light_up()
+        while True:
+            for i in range(12):
+                self.LED_matrix.set_brightness(i)
+                time.sleep(0.1)
+            for i in range(12):
+                self.LED_matrix.set_brightness(12-i)
+                time.sleep(0.1)
+                
+        # spin servo
+        
+        
+    # End def
+    
+    
+    
+    def break_mode(self):
+        pass
+        
+    #End def
+    
+    
+    def run(self):
+        self.set_times()
+        self.study_mode()
+        
+        
+    # End def
+        
         
     def cleanup(self):
         self.LCD_screen.cleanup()
@@ -200,14 +234,6 @@ class PrismPomodoro():
     
     # End def
             
-            
-         #   if (self.yellow_button.is_pressed() == True):
-          #      self.study_time = self.study_time + 5
-         #       print("yellow pressed")
-         #       self.LCD_screen.write(format(self.study_time))
-         #   if (self.blue_button.is_pressed() == True):
-         #       self.study_time = self.study_time - 5
-         #       print("blue pressed")
 
 # End class
 
@@ -225,14 +251,22 @@ if __name__ == '__main__':
     prism_pomodoro = PrismPomodoro()
 
     try:
-        # Run the lock
-       # combo_lock.run()
         prism_pomodoro.set_times()
 
-    except KeyboardInterrupt:
+#    except KeyboardInterrupt:
         # Clean up hardware when exiting
-        prism_pomodoro.cleanup()
+#        prism_pomodoro.cleanup()
+    except:
+        pass
 
+
+    print("study mode test")
+    try:
+        prism_pomodoro.study_mode()
+        time.sleep(3)
+        prism_pomodoro.cleanup()
+    except KeyboardInterrupt:
+        prism_pomodoro.cleanup()
 
     print("Program Complete")
 
