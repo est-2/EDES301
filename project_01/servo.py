@@ -106,7 +106,8 @@ class Servo():
 
 
     def stop_spin(self):
-        self.servo.throttle = 0.0
+        # use calibrated value instead of 0
+        self.servo.throttle = -0.02
         self.status = "stopped"
     
     # End def
