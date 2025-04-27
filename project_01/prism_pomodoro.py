@@ -120,16 +120,22 @@ class PrismPomodoro():
         #   - All initialized by libraries when instanitated
 
     # End def
+    
 
     def increment_up(self, value):
         value += 5
         print(format(value))
         return value
+    
+    # End def
+        
         
     def increment_down(self, value):
         value -= 5
         print(format(value))
         return value
+    
+    # End def
         
 
     def set_times(self):
@@ -159,7 +165,6 @@ class PrismPomodoro():
         self.LCD_screen.clear_screen()
         self.LCD_screen.write_two_lines("Study time:","{} minutes".format(self.study_time))
         time.sleep(3)
-        
         
         # set break time
         self.LCD_screen.clear_screen()
@@ -191,11 +196,21 @@ class PrismPomodoro():
     
     def study_mode(self):
         """ display study message on LCD screen, pulse LED matrix, spin Servo """
+        
         # write message
         self.LCD_screen.clear_screen()
         self.LCD_screen.write_two_lines("study hard!", "You got this!")
         
-         # pulse the screen brightness
+    # End def
+
+    
+    def break_mode(self):
+        
+        # write message
+        self.LCD_screen.clear_screen()
+        self.LCD_screen.write_two_lines("break time!", "")
+        
+        # pulse the screen brightness
         self.LED_matrix.set_brightness(1)
         self.LED_matrix.light_up()
         while True:
@@ -207,30 +222,29 @@ class PrismPomodoro():
                 time.sleep(0.1)
                 
         # spin servo
-        
-        
-    # End def
-    
-    
-    
-    def break_mode(self):
-        pass
+        self.servo.spin_forward()
         
     #End def
     
     
     def run(self):
         self.set_times()
-        self.study_mode()
-        
+        while True:
+            self.study_mode()
+            time.sleep(self.study_time)
+            self.break_mode()
+            time.sleep(self.break_time)
         
     # End def
         
         
     def cleanup(self):
+        self.blue_button.cleanup()
+        self.yellow_button.cleanup()
+        self.black_button.cleanup()
         self.LCD_screen.cleanup()
         self.LED_matrix.cleanup()
-        
+        self.servo.cleanup()
     
     # End def
             
@@ -251,22 +265,27 @@ if __name__ == '__main__':
     prism_pomodoro = PrismPomodoro()
 
     try:
-        prism_pomodoro.set_times()
-
-#    except KeyboardInterrupt:
-        # Clean up hardware when exiting
-#        prism_pomodoro.cleanup()
-    except:
-        pass
-
-
-    print("study mode test")
-    try:
-        prism_pomodoro.study_mode()
-        time.sleep(3)
-        prism_pomodoro.cleanup()
+        prism_pomodoro.run()
     except KeyboardInterrupt:
         prism_pomodoro.cleanup()
+
+
+#    print("study mode test")
+#    try:
+#        prism_pomodoro.study_mode()
+#        time.sleep(3)
+#        prism_pomodoro.cleanup()
+#    except KeyboardInterrupt:
+#        prism_pomodoro.cleanup()
+        
+        
+#    print("break mode test")
+#    try:
+#        prism_pomodoro.break_mode()
+#        time.sleep(10)
+#        prism_pomodoro.cleanup()
+#    except KeyboardInterrupt:
+#        prism_pomodoro.cleanup()
 
     print("Program Complete")
 

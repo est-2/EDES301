@@ -111,13 +111,15 @@ class Servo():
     
     # End def
     
-
+ 
     def cleanup(self):
         """Cleanup the hardware components."""
-        # Stop servo
-        self.stop_spin()
-        self.pin.deinit()
-        
+        if self.servo:
+            self.stop_spin()  # Must stop the servo BEFORE deinit
+            self.servo = None
+        if self.pin:
+            self.pin.deinit()
+            self.pin = None
     # End def
 
 # End class
