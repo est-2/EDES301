@@ -90,7 +90,7 @@ class PrismPomodoro():
     lcd_d4          = None
     
     def __init__(self, black_button="P2_2", blue_button="P2_4", yellow_button="P2_6",
-                       servo="P1_36", cs=board.P1_6, spi=board.SPI(),
+                       servo=board.P1_36, cs=board.P1_6, spi=board.SPI(),
                        lcd_rs=board.P2_33, lcd_en=board.P2_35, lcd_d7=board.P2_31, lcd_d6=board.P2_29, lcd_d5=board.P2_27, lcd_d4=board.P2_25,
                        ):
         """ Initialize variables and set up display """
@@ -98,7 +98,7 @@ class PrismPomodoro():
         self.black_button       = BUTTON.Button(black_button)
         self.blue_button        = BUTTON.Button(blue_button)
         self.yellow_button      = BUTTON.Button(yellow_button)
-#        self.servo              = SERVO.Servo(servo, default_position=SERVO_LOCK)
+        self.servo              = SERVO.Servo(servo)
         self.LED_matrix         = MATRIX.LEDMatrix(digitalio.DigitalInOut(cs), spi)
         self.LCD_screen         = LCD_16x2.LCD(lcd_rs, lcd_en, lcd_d7, lcd_d6, lcd_d5, lcd_d4)
         
@@ -115,7 +115,7 @@ class PrismPomodoro():
     
     def _setup(self):
         """Setup the hardware components."""
-        self.LCD_screen.clear_screen()
+#        self.LCD_screen.clear_screen()
         # Buttons / Servo / 
         #   - All initialized by libraries when instanitated
 
