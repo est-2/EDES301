@@ -3,7 +3,7 @@
 Prism Pomodoro
 --------------------------------------------------------------------------
 License:   
-Copyright 2025 Eleanor Tucker
+Copyright 2025 - Eleanor Tucker
 
 Redistribution and use in source and binary forms, with or without 
 modification, are permitted provided that the following conditions are met:
@@ -230,8 +230,11 @@ class PrismPomodoro():
                     time.sleep(1.5)
                     self.LCD_screen.write("                ")
         self.LCD_screen.clear_screen()
-        self.LCD_screen.write_two_lines("Break time:","{} minutes".format(self.break_time))
-        time.sleep(1)
+        if (self.break_time > 1):
+            self.LCD_screen.write_two_lines("Break time:","{} minutes".format(self.break_time))
+        else:
+            self.LCD_screen.write_two_lines("Break time:","{} minute".format(self.break_time))
+        time.sleep(2)
     
     # End def
     

@@ -163,7 +163,7 @@ class LCD():
     # End def
    
    
-   def cleanup(self):
+    def cleanup(self):
         """ Clean up the hardware. """
         self.lazy_init()
         self.lcd.clear()
