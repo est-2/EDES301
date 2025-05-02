@@ -35,7 +35,24 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 Software API:
    
+  LCD(rs pin, en pin, d7 pin, d6 pin, d5 pin, d4 pin)
+    - Provide pins (GPIO configured)
+    
+    clear_screen()
+      - Clears the LCD screen of any message
+      
+    write(first_line)
+      - Writes a message to the first line of the screen
+      - Input first_line as a string
+      - Note: this function does not clear the second line of the screen
+      
+    write_in_position(row, col, string)
+      - Writes a message (string) at a specific location specified by row (0 or 
+        1) and col (0 to 15)
 
+    write_two_lines(first_line, second_line)
+      - Takes two strings (first_line and second_line) and writes them to the 
+        first and second lines of LCD screen, respectively
 
 """
 import time
@@ -47,6 +64,7 @@ import digitalio
 # Constants
 # ------------------------------------------------------------------------
 
+# None
 
 # ------------------------------------------------------------------------
 # Global variables
@@ -68,9 +86,12 @@ class LCD():
     lcd_d4 = None
     
     
-    def __init__(self, lcd_rs=board.P2_33, lcd_en=board.P2_35, lcd_d7=board.P2_31, lcd_d6=board.P2_29, lcd_d5=board.P2_27, lcd_d4=board.P2_25):
-        """ Initialize variables and set up the button """
-        if (lcd_rs == None or lcd_en == None or lcd_d7 == None or lcd_d6 == None or lcd_d5 == None or lcd_d4 == None):
+    def __init__(self, lcd_rs=board.P2_33, lcd_en=board.P2_35, 
+                lcd_d7=board.P2_31, lcd_d6=board.P2_29, lcd_d5=board.P2_27, 
+                lcd_d4=board.P2_25):
+        """ Initialize variables """
+        if (lcd_rs == None or lcd_en == None or lcd_d7 == None or lcd_d6 == None
+            or lcd_d5 == None or lcd_d4 == None):
             raise ValueError("Pins not provided for LCD")
         else:
             self.lcd_rs = lcd_rs
@@ -99,14 +120,6 @@ class LCD():
             self.lcd.clear()
             
     # End def
-
-    
-    def cleanup(self):
-        """ Clean up the hardware. """
-        self.lazy_init()
-        self.lcd.clear()
-    
-    # End def
     
     
     def clear_screen(self):
@@ -116,8 +129,9 @@ class LCD():
         
     # End def
     
+    
     def write(self, first_line):
-        """ write a message on the LCD """
+        """ Write a message on the LCD """
         self.lazy_init()
         self.lcd.message = first_line
         
@@ -125,9 +139,11 @@ class LCD():
 
         
     def write_in_position(self, row, col, string):
-        """ write a message in a specific place on the LCD """
-        # The LCD has 2 rows, and 16 columns, so the row should be 0 or 1 and col should be 0-15
-        # Create the message string with an appropriate number of newlines to position the cursor.
+        """ Write a message in a specific place on the LCD """
+        # The LCD has 2 rows, and 16 columns, so the row should be 0 or 1 and 
+        # col should be 0-15
+        # Create the message string with an appropriate number of newlines to 
+        # position the cursor.
         self.lazy_init()
         if row == 0:
             # Top row
@@ -139,13 +155,20 @@ class LCD():
     # End def
     
     def write_two_lines(self, first_line, second_line):
-        """ write a message on 2 lines """
+        """ Write a message on 2 lines """
         self.lazy_init()
         self.write_in_position(0, 0, first_line)
         self.write_in_position(1, 0, second_line)
         
     # End def
    
+   
+   def cleanup(self):
+        """ Clean up the hardware. """
+        self.lazy_init()
+        self.lcd.clear()
+    
+    # End def
     
 # End class
 
@@ -160,7 +183,8 @@ if __name__ == '__main__':
     print("LCD Test")
 
     # Create instantiation of the LCD screen
-    lcd = LCD(board.P2_33, board.P2_35, board.P2_31, board.P2_29, board.P2_27, board.P2_25)
+    lcd = LCD(board.P2_33, board.P2_35, board.P2_31, board.P2_29, board.P2_27, 
+              board.P2_25)
     
     lcd.clear_screen()
     lcd.write("test")

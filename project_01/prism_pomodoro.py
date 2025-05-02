@@ -38,7 +38,7 @@ Use the following hardware components to make a prism pomodoro:
   - Servo continuous rotation motor
 
 Description:
-  - Programmable: User inputs study time and break time using buttons and the LCD screen.
+  - User inputs study time and break time using buttons and the LCD screen.
   - Study mode: LCD screen displays message indicating that it is in study mode.
   - Break mode: LCD screen displays message, LED matrix pulses, and Servo spins.
   
@@ -48,10 +48,12 @@ Software API:
                  servo pin, LED matrix cs pin, LED matrix SPI, LCD pins)
     
     set_times()
-       - Prompts the user to select study time and break time using the 3 buttons
-       - Blue button is down, yellow button is up, black button is "done" or "next"
-       - Study time changes in increments of 5 minutes, break time in increments of 1 minute
-       - Will prompt the user to try again if an invalid number is chosen (0 or negative)
+       - Prompts user to select study time and break time using the 3 buttons
+       - Blue button is down, yellow button is up, black button is "done"/"next"
+       - Study time changes in increments of 5 minutes
+       - Break time changes in increments of 1 minute
+       - Will prompt the user to try again if an invalid number is chosen 
+         (0 or negative)
        
        
     study_mode()
@@ -66,7 +68,7 @@ Software API:
        - Requires time input in seconds
     
     run()
-       - Calls set_times and then cycles through study and break modes continuously
+       - Calls set_times and then cycles through study and break modes
        
     cleanup()
        - Turns off/clears LCD screen and LED matrix
