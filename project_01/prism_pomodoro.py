@@ -52,9 +52,8 @@ Software API:
        - Blue button is down, yellow button is up, black button is "done"/"next"
        - Study time changes in increments of 5 minutes
        - Break time changes in increments of 1 minute
-       - Will prompt the user to try again if an invalid number is chosen 
-         (0 or negative)
-       
+       - Will prompt the user to try again if an invalid number (0 or negative)
+         is chosen
        
     study_mode()
        - Displays message on LCD screen
@@ -77,7 +76,6 @@ Software API:
   
 
 """
-
 
 import time
 import board
@@ -291,6 +289,7 @@ class PrismPomodoro():
         
         # set the study and break times
         self.set_times()
+        time.sleep(2)
         # cycle through study and break modes continuously
         while True:
             # enter study mode
@@ -299,6 +298,13 @@ class PrismPomodoro():
             time.sleep(self.study_time*60)
             # go into break mode for the chosen break time
             self.break_mode(self.break_time*60)
+            # Check if black button is pressed and break the loop
+            if self.black_button.is_pressed():
+                self.LCD_screen.clear_screen()
+                self.LCD_screen.write("DONE")
+                self.cleanup()
+                break  # Exit the loop after cleanup
+
         
     # End def
         
