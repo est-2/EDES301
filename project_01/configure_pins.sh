@@ -35,7 +35,7 @@
 #   - LCD (GPIO)
 #   - Buttons (GPIO)
 #   - Servo (PWM)
-#   - LED matrix (SPI)
+#   - LED matrix (GPIO, SPI)
 # 
 # --------------------------------------------------------------------------
 

@@ -3,7 +3,7 @@
 LCD 16x2 Driver
 --------------------------------------------------------------------------
 License:   
-Copyright 2021-2025 - Eleanor Tucker
+Copyright 2025 - Eleanor Tucker
 
 Redistribution and use in source and binary forms, with or without 
 modification, are permitted provided that the following conditions are met:
@@ -34,42 +34,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
 Software API:
-
-  Button(pin, press_low)
-    - Provide pin that the button monitors
-    
-    wait_for_press()
-      - Wait for the button to be pressed 
-      - Function consumes time
-        
-    is_pressed()
-      - Return a boolean value (i.e. True/False) on if button is pressed
-      - Function consumes no time
-    
-    get_last_press_duration()
-      - Return the duration the button was last pressed
-
-    cleanup()
-      - Clean up HW
-      
-    Callback Functions:
-      These functions will be called at the various times during a button 
-      press cycle.  There is also a corresponding function to get the value
-      from each of these callback functions in case they return something.
-    
-      - set_pressed_callback(function)
-        - Excuted every "sleep_time" while the button is pressed
-      - set_unpressed_callback(function)
-        - Excuted every "sleep_time" while the button is unpressed
-      - set_on_press_callback(function)
-        - Executed once when the button is pressed
-      - set_on_release_callback(function)
-        - Executed once when the button is released
-      
-      - get_pressed_callback_value()
-      - get_unpressed_callback_value()
-      - get_on_press_callback_value()
-      - get_on_release_callback_value()      
+   
 
 
 """
@@ -116,7 +81,6 @@ class LCD():
             self.lcd_d4 = lcd_d4
             
         self.lcd = None
-              
         
     # End def
     

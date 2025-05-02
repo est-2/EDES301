@@ -123,6 +123,7 @@ class LEDMatrix():
         # Initialize LED matrix, clear the display, set brightness to 5
         self.matrix.fill(False)
         self.matrix.show()
+        time.sleep(0.1)
         self.set_brightness(5);
     # End def
 
@@ -154,6 +155,7 @@ class LEDMatrix():
         """ Clear/turn off the matrix display """
         self.matrix.fill(False)
         self.matrix.show()
+        time.sleep(0.1)
         
     # End def
     

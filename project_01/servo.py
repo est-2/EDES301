@@ -31,15 +31,25 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 --------------------------------------------------------------------------
 
-SG90 Servo Driver
+FS5103R Continous Rotation Servo Driver
 
-API:
+Software API:
   Servo(pin)
-    - Provide pin that the Servo is connected
+    - Provide pin that the Servo is connected to (must be PWM enabled)
   
-    turn(percentage)
-      -   0 = Fully clockwise
-      - 100 = Fully anti-clockwise
+    spin_forward()
+       - Makes the Servo rotate counter-clockwise
+       
+    spin_backward()
+       - Makes the Servo rotate clockwise
+       
+    stop_spin()
+       - Returns the Servo to stationary
+       
+    cleanup()
+       - Stops the Servo if rotating
+       - Deinitializes PWM pin
+    
 
 """
 import time
@@ -92,6 +102,7 @@ class Servo():
 
     
     def spin_forward(self):
+        """ Spin in the counter-clockwise direction at a moderate speed """
         self.servo.throttle = 0.2
         self.status = "forward"
 
@@ -99,6 +110,7 @@ class Servo():
     
     
     def spin_backward(self):
+        """ Spin in the clockwise direction at a moderate speed """
         self.servo.throttle = -0.2
         self.status = "backward"
         
@@ -106,6 +118,7 @@ class Servo():
 
 
     def stop_spin(self):
+        """ Stop the Servo from spinning """
         # use calibrated value instead of 0
         self.servo.throttle = -0.02
         self.status = "stopped"
@@ -114,14 +127,19 @@ class Servo():
     
  
     def cleanup(self):
-        """Cleanup the hardware components."""
+        """Clean up the hardware components."""
+        
+        # Ensure Servo is stopped
         if self.servo:
-            self.stop_spin()  # Must stop the servo BEFORE deinit
+            self.stop_spin()
             self.servo = None
+        # Deinitialize pwm pin
         if self.pin:
             self.pin.deinit()
             self.pin = None
+    
     # End def
+
 
 # End class
 
