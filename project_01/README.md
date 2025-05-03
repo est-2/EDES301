@@ -13,7 +13,7 @@ Libraries: (*Note: some of these libraries require Python 3.11*)
 - Board
 - Digitalio
 - Adafruit_BBIO
-- Adafruit_character_lcd
+- Adafruit\_character_lcd
 - Adafruit_max7219
 - Adafruit_motor
 
@@ -21,9 +21,9 @@ Libraries: (*Note: some of these libraries require Python 3.11*)
 The code uses object-oriented programming and creates instantiations from classes. Each object corresponds to a hardware component (or the device as a whole).
 Classes and objects in prism_pomodoro.py: 
 - MATRIX class --> one object (LED_matrix)
-- BUTTON class --> three objects (black_button, blue_button, and yellow_button)
+- BUTTON class --> three objects (black\_button, blue\_button, and yellow_button)
 - SERVO class --> one object (servo)
-- LCD_16x2 class --> one object (LCD_screen)
+- LCD\_16x2 class --> one object (LCD_screen)
 - PrismPomodoro class --> one object (prism_pomodoro)
 
 
