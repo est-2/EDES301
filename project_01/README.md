@@ -33,3 +33,4 @@ To run this code, you will need to download the 5 python files, configure pins s
 
 ## Using the Prism Pomodoro
 First, you will be prompted to set the study and break times. Use the yellow button to increase the value, and the blue button to decrease the value. Once the screen displays your desired value (in mintues), press the black button to confirm. Then, the device will automatically enter study mode and switch to break mode according to the times you entered. 
+
