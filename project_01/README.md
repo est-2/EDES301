@@ -1,5 +1,7 @@
 # Pomodoro Prism Project
-Rice University EDES301 Spring 2025
+Rice University <br>
+EDES 301 <br>
+Spring 2025 <br>
 Eleanor Tucker
 
 
