@@ -8,7 +8,7 @@ Eleanor Tucker
 ## Description
 This code operates a Prism Pomodoro -- a study timer that uses visual instead of
 auditory cues. It runs using python scripts on a PocketBeagle. For details on 
-the hardware and story of this project, visit [this hackster.io page](hackster.io)
+the hardware and story of this project, visit [this hackster.io page](https://www.hackster.io/eleanor-tucker/prism-pomodoro-a83854)
 
 
 ## Software requirements
