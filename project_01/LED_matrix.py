@@ -104,9 +104,9 @@ class LEDMatrix():
     def _setup(self):
         """ Setup the hardware components. """
         # Initialize LED matrix, clear the display
+        time.sleep(0.1)
         self.matrix.fill(False)
         self.matrix.show()
-        time.sleep(0.1)
         
     # End def
     
