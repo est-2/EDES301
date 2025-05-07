@@ -1,0 +1,11 @@
+Qty,Value,Device,Package,Designator(s),Description,Manufacturer / MPN
+1,0.1,R_R0805,R0805,R5,Resistor,
+3,2.2k,R_R0402,R0402,"R2, R3, R4",Resistor,
+1,8X8_LED_MATRIX,8X8_LED_MATRIX,8X8_LED_MATRIX,U2,"Small 1.2"" 8x8 Ultra Bright Red LED Matrix - KWM-30881CVB",Adafruit 455
+6,FIDUCIAL,FIDUCIAL,FIDUCIAL_40MIL,"FUD1, FUD2, FUD3, FUD4, FUD5, FUD6",Fiducials for aiding in manufacture,
+1,LCD_2X16_SIL,LCD_2X16_SIL,HY-1602F,LCD1,Standard LCD 16x2 - white on blue,Adafruit 181
+4,MOUNTING_HOLE,MOUNTING_HOLE,MOUNTING_HOLE,"MGT1, MGT2, MGT3, MGT4",Chassis mounting hole with GND connection ability,
+1,POCKETBEAGLE,POCKETBEAGLE,POCKETBEAGLE,U1,PocketBeagle development board,BeagleBoard
+1,POTENTIOMETER,POTENTIOMETER,POT-PO90S,R1,Potentiometer,
+3,PUSH_BUTTON,PUSH_BUTTON,BUTTON_12.5MM,"SW1, SW2, SW3",Round tactile button switch,Adafruit 1009
+1,SERVO,SERVO,SERVO-X1,U3,Continuous Rotation Servo - FeeTech FS5103R,Adafruit 154
